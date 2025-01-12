@@ -36,12 +36,18 @@ def get_domain_rating(domain_to_check: str, random_proxy: str) -> str:
         else:
             return "Domain rating not found"
         
+def get_domain_names() -> list[str]:
+    with open("./data/domains.txt", 'r') as file:
+        return [line.strip() for line in file.readlines()]
 
 if __name__ == "__main__":
     proxy_handler = ProxyHandler()
     random_proxy = proxy_handler.get_random_proxy()
     
-    domain_to_check = "https://www.berachain.com/"
+    all_domains = get_domain_names()
     
-    get_domain_rating(domain_to_check, random_proxy)
+    for domain in all_domains:
+        domain_rating = get_domain_rating(domain, random_proxy)
+        print(f"Domain: {domain}, Rating: {domain_rating}")
+
 
